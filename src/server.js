@@ -3,9 +3,18 @@ import bodyParser from "body-parser";
 require("dotenv").config();
 import connection from "./config/connectDB";
 import apiRoutes from "./api/routes";
+// Swagger UI và YAMLJS
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 
 const app = express();
+// Load file template.yaml
+const swaggerDocument = YAML.load("./template.yaml");
 
+// Sử dụng Swagger UI để hiển thị tài liệu
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Cấu hình CORS
 app.use(function (req, res, next) {
   let method = req.method;
   const allowedOrigins = process.env.ALLOWED_ORIGINS || "http://localhost:3000";
@@ -15,9 +24,15 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
 
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
 
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type,Authorization"
+  );
 
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
