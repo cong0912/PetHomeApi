@@ -11,7 +11,7 @@ const app = express();
 // Load file template.yaml
 const swaggerDocument = YAML.load("./template.yaml");
 
-// Sử dụng Swagger UI để hiển thị tài liệu
+// show doc by Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Cấu hình CORS
