@@ -1,0 +1,582 @@
+openapi: 3.0.0
+info:
+  title: PetHome API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: authController
+  - name: userController
+  - name: productController
+  - name: orderController
+  - name: petController
+  - name: serviceController
+  - name: cageController
+  - name: categoryController
+paths:
+  /api/v1/auth/register:
+    post:
+      tags:
+        - authController
+      summary: register account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: duy khoa
+                phone: "0905330959"
+                email: khoa21062003@gmail.com
+                password: "123"
+                dob: "2003-06-21"
+                sex: nam
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/verifyOtp:
+    post:
+      tags:
+        - authController
+      summary: verify otp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: duy khoa
+                phone: "0905330959"
+                email: khoa21062003@gmail.com
+                password: "123"
+                dob: "2003-06-21"
+                sex: nam
+                otp: "490681"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/login:
+    post:
+      tags:
+        - authController
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: khoa21062003@gmail.com
+                password: "123"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/refreshToken:
+    post:
+      tags:
+        - authController
+      summary: refresh token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                refreshToken: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtob2EyMTA2MjAwM0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3MTcyNTA5NzIsImV4cCI6MTcyNTAyNjk3Mn0.9LwasczYbn3-mwE8huELUFVF-WwysXivCPdQjac_Qmw
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/667939bececd6dd1a7a3a904:
+    get:
+      tags:
+        - userController
+      summary: get user by id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products:
+    get:
+      tags:
+        - productController
+      summary: get cat products
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          example: product
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: other
+        - name: species
+          in: query
+          schema:
+            type: string
+          example: cat
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - productController
+      summary: update product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 668e55d05a70b5efa017d418
+                name: cake
+                des: kkk
+                price: 25000
+                quantity: 20
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/665f3508c8e4653ac6b3c21c:
+    get:
+      tags:
+        - productController
+      summary: get product detail
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/sort:
+    get:
+      tags:
+        - productController
+      summary: get services desc
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          example: service
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: spa
+        - name: species
+          in: query
+          schema:
+            type: string
+          example: both
+        - name: sort
+          in: query
+          schema:
+            type: string
+          example: desc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/search:
+    get:
+      tags:
+        - productController
+      summary: search all by name
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: chó
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/disable:
+    post:
+      tags:
+        - productController
+      summary: disable product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 668e55d05a70b5efa017d418
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/unDisable:
+    post:
+      tags:
+        - productController
+      summary: unDisable product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 668e55d05a70b5efa017d418
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders:
+    post:
+      tags:
+        - orderController
+      summary: create order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userId: 667939bececd6dd1a7a3a904
+                addressShipping:
+                  street: 366/4 Vo Nguyen Giap
+                  district: phuong Truong Quang Trong
+                  city: Quang Ngai
+                paymentMethod: OP
+                cartDetails:
+                  - productId: 665fe148578f0d889142d075
+                    quantity: 2
+                  - productId: 665fe148578f0d889142d076
+                    quantity: 3
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - orderController
+      summary: get orders by status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+          example: Processing
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/staff/cancel:
+    post:
+      tags:
+        - orderController
+      summary: cancel order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                orderId: 66793a9dcecd6dd1a7a4aa5f
+                reason: hết tiền
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/confirm:
+    post:
+      tags:
+        - orderController
+      summary: confirm order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                orderId: 66659c46b2f5d09167dae9e3
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/history:
+    get:
+      tags:
+        - orderController
+      summary: get orders history
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          example: 667939bececd6dd1a7a3a904
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/completed:
+    post:
+      tags:
+        - orderController
+      summary: completed order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                orderId: 667ada3aeea9f6e23e3a909b
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/pet:
+    get:
+      tags:
+        - petController
+      summary: view user's pets
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          example: 665c477523330c9fdf3db451
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - petController
+      summary: delete pet
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          example: 665c477523330c9fdf3db451
+        - name: petId
+          in: query
+          schema:
+            type: string
+          example: 666da14bca1930422e6d30cf
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service:
+    post:
+      tags:
+        - serviceController
+      summary: create service record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                petId: 66793b00cecd6dd1a7a5118d
+                timeStartService: "2024-06-25T13:20:00.000Z"
+                productId: 665fe148578f0d889142d087
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - serviceController
+      summary: get all booking service
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service/confirm:
+    post:
+      tags:
+        - serviceController
+      summary: confirm service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                bookingId: 6679a14c44d8b4f7fc2ab6ba
+                cageId: 66793a78cecd6dd1a7a47fd2
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service/66852f0cb770ebf6c3aad1e3:
+    get:
+      tags:
+        - serviceController
+      summary: get detail booking
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service/inProgress:
+    post:
+      tags:
+        - serviceController
+      summary: inprogress booking service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                serviceRecordId: 668bb17794de2469a089de05
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service/completed:
+    post:
+      tags:
+        - serviceController
+      summary: completed booking service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                serviceRecordId: 668bb17794de2469a089de05
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/service/serviceHistory:
+    post:
+      tags:
+        - serviceController
+      summary: get booking service history
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userId: 667939bececd6dd1a7a3a904
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/cage/empty:
+    post:
+      tags:
+        - cageController
+      summary: get empty cage for pet service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                bookingId: 6679a14c44d8b4f7fc2ab6ba
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/category:
+    get:
+      tags:
+        - categoryController
+      summary: get category
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: species
+          in: query
+          schema:
+            type: string
+          example: dog
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: food
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
