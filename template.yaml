@@ -3,7 +3,7 @@ info:
   title: PetHome API
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: https://pethome.onrender.com
 components:
   securitySchemes:
     bearerAuth:
